@@ -11,7 +11,7 @@ app.get("/:x/:y", (req, res) => {
   res.send(result);
 });
 
-app.get("/x/:x/y/:y/z/:z", (req, res) => {
+app.get("/:x/:y/:z", (req, res) => {
   let num1 = parseInt(req.params.x);
   let num2 = parseInt(req.params.y);
   let num3 = parseInt(req.params.z);
