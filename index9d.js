@@ -1,28 +1,23 @@
-//! Middleware
-
 import express from "express";
 const app = express();
-app.listen(8080, () => {
-  console.log("server running");
-});
-
-const jwt = Math.round(Math.random() * 1000000).toString();
+const token = Math.round(Math.random() * 100000).toString();
+app.use(express.json());
 
 const auth = (req, res, next) => {
-  const token = req.headers.authorization; 
-  const val = token.split(" ");
-  if (val[1] === jwt) {
-    next();
-  } else {
-      console.log(jwt);
-    res.send("Access Denied");
-  }
+  const val = req.headers.authorization;
+  const tokenValue = val.split(" ");
+  if (tokenValue[1] === token) next();
+  else res.send("unauthrized");
 };
 
-app.post("/login", (req, res) => {
-    res.send(jwt);
-})
-
-app.get("/",auth, (req, res) => {
+app.get("/", auth, (req, res) => {
   res.send("Welcome");
+});
+
+app.post("/login", (req, res) => {
+  res.send(token);
+});
+
+app.listen(8080, () => {
+  console.log("server is live");
 });
