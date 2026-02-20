@@ -5,7 +5,14 @@ app.listen(8080, () => {
 });
 
 //? Middleware
-app.use(express.json());
+// const greet = (req,res,next) => {
+//   console.log("Hello World");
+//   next();
+// }
+// app.use(greet);
+
+//? Middleware
+app.use(express.json());  //? convert: json => js object
 
 let users = [
   {
@@ -27,6 +34,12 @@ let users = [
     role: "admin",
   },
 ];
+
+//! GET
+//? http://localhost:8080/
+app.get("/", (req, res) => {
+  res.json(users);
+})
 
 //! POST
 //? http://localhost:8080/
